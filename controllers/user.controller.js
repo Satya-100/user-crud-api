@@ -31,18 +31,47 @@ async function createNewUser(req, res) {
 }
 
 async function getUserById(req, res) {
-
-  const user = await User.findById(req.params._id);
+  const user = await User.findById(req.params.id);
 
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
 
-  return res.status(200).json({ message: "User fetched successfully", user });
+  return res
+    .status(200)
+    .json({ message: "User fetched successfully", user_details: user });
+}
+
+async function updateUserById(req, res) {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  return res
+    .status(200)
+    .json({ message: "User updated successfully", user_details: user });
+}
+
+async function deleteUserById(req, res) {
+  const user = await User.findByIdAndDelete(req.params.id, { new: true });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  return res
+    .status(200)
+    .json({ message: "User deleted successfully", user_details: user });
 }
 
 module.exports = {
   getAllUsers,
   createNewUser,
   getUserById,
+  updateUserById,
+  deleteUserById,
 };
