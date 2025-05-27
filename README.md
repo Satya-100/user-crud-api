@@ -20,6 +20,7 @@ A simple RESTful API for managing users, built with **Node.js**, **Express**, an
 - Express.js
 - MongoDB + Mongoose
 - dotenv
+- Postman
 
 ---
 
